@@ -11,8 +11,9 @@ use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Article;
+use App\Entity\Category;
 use App\Repository\ArticleRepository;
-
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -60,6 +61,10 @@ class BlogController extends AbstractController
 
         $form = $this->createFormBuilder($article)
                       ->add('title')
+                      ->add('category', EntityType::class, [
+                          'class' => Category::class,
+                          'choice_label'=> 'title'
+                      ])
                       ->add('content')
                       ->add('image')
                       ->getForm();
